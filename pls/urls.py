@@ -18,13 +18,19 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf.urls.static import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+admin.autodiscover()
 
-urlpatterns = [
+urlpatterns = patterns(
+    '',
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^qna/', include('qna.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('qna.urls')),
-]
+#    url(r'^$', IndexView.as_view(), name='home'),
+    url(r'^accounts/', include('allauth.urls')),
+)
 
 # django-summernote image upload
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
